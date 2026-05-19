@@ -840,7 +840,7 @@ fn optimize_stay_value(target_score: i32, strategies: &Vec<Strategy>) {
 }
 
 fn simulation(number_of_players: i32, target_score: i32, stay_value: i32) {
-    println!("Do simulation with {number_of_players} players up to {target_score} points");
+    debug_println!("Do simulation with {number_of_players} players up to {target_score} points");
 
     let mut game = Game::new(number_of_players, target_score, stay_value);
 

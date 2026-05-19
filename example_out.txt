@@ -1,0 +1,1643 @@
+Deck:
+	1x:	Number: 1
+	11x:	Number: 11
+	1x:	Modifier: +2
+	12x:	Number: 12
+	1x:	Modifier: +8
+	7x:	Number: 7
+	6x:	Number: 6
+	1x:	Modifier: +4
+	1x:	Modifier: +6
+	2x:	Number: 2
+	3x:	Number: 3
+	10x:	Number: 10
+	1x:	Number: 0
+	9x:	Number: 9
+	8x:	Number: 8
+	3x:	Action: Flip Three
+	1x:	Modifier: +10
+	1x:	Modifier: x2
+	3x:	Action: Freeze
+	4x:	Number: 4
+	3x:	Action: Second Chance
+	5x:	Number: 5
+
+Play a round of Flip 7!
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 must hit!
+Player 0 has drawn "Number: 2"
+Player 0: 0 points, 2 live points (+2)
+
+Player 1 is taking their turn
+Player 1 must hit!
+Player 1 has drawn "Number: 4"
+Player 1: 0 points, 4 live points (+4)
+
+Player 2 is taking their turn
+Player 2 must hit!
+Player 2 has drawn "Number: 3"
+Player 2: 0 points, 3 live points (+3)
+
+Player 3 is taking their turn
+Player 3 must hit!
+Player 3 has drawn "Number: 0"
+Player 3: 0 points, 0 live points (+0)
+Scoreboard:
+	Player 0 : 0 points, 2 live points (+2)
+	Player 1 : 0 points, 4 live points (+4)
+	Player 2 : 0 points, 3 live points (+3)
+	Player 3 : 0 points, 0 live points (+0)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 12"
+Player 0: 0 points, 14 live points (+14)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 7"
+Player 1: 0 points, 11 live points (+11)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 6"
+Player 2: 0 points, 9 live points (+9)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 5"
+Player 3: 0 points, 5 live points (+5)
+Scoreboard:
+	Player 0 : 0 points, 14 live points (+14)
+	Player 1 : 0 points, 11 live points (+11)
+	Player 2 : 0 points, 9 live points (+9)
+	Player 3 : 0 points, 5 live points (+5)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Action: Second Chance"
+Player 0 drew a second chance!
+Player 0: 0 points, 14 live points (+14)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 12"
+Player 1: 0 points, 23 live points (+23)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 12"
+Player 2: 0 points, 21 live points (+21)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Action: Freeze"
+Player 3 Drew a Freeze!
+Targeting Player 1 because they have the highest score 23 (or were the only valid target)
+Player 1 is forced to stay!
+Player 3: 0 points, 5 live points (+5)
+Scoreboard:
+	Player 0 : 0 points, 14 live points (+14)
+	Player 1 (stayed): 0 points, 23 live points (+23)
+	Player 2 : 0 points, 21 live points (+21)
+	Player 3 : 0 points, 5 live points (+5)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 11"
+Player 0: 0 points, 25 live points (+25)
+
+Player 1 is taking their turn
+Player 1 has stayed!
+Player 1: 0 points, 23 live points (+23)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 12"
+Player 2's hand already has "Number: 12" in it!
+Player 2 busts!
+Player 2 is out of the round!
+Player 2: 0 points, 0 live points (+0)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Modifier: +6"
+Player 3: 0 points, 11 live points (+11)
+Scoreboard:
+	Player 0 : 0 points, 25 live points (+25)
+	Player 1 (stayed): 0 points, 23 live points (+23)
+	Player 2 (out): 0 points, 0 live points (+0)
+	Player 3 : 0 points, 11 live points (+11)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to stay!
+Player 0: 0 points, 25 live points (+25)
+
+Player 1 is taking their turn
+Player 1 has stayed!
+Player 1: 0 points, 23 live points (+23)
+
+Player 2 is taking their turn
+Player 2 is out of the round!
+Player 2: 0 points, 0 live points (+0)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 12"
+Player 3: 0 points, 23 live points (+23)
+Scoreboard:
+	Player 0 (stayed): 0 points, 25 live points (+25)
+	Player 1 (stayed): 0 points, 23 live points (+23)
+	Player 2 (out): 0 points, 0 live points (+0)
+	Player 3 : 0 points, 23 live points (+23)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 has stayed!
+Player 0: 0 points, 25 live points (+25)
+
+Player 1 is taking their turn
+Player 1 has stayed!
+Player 1: 0 points, 23 live points (+23)
+
+Player 2 is taking their turn
+Player 2 is out of the round!
+Player 2: 0 points, 0 live points (+0)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 9"
+Player 3: 0 points, 32 live points (+32)
+Scoreboard:
+	Player 0 (stayed): 0 points, 25 live points (+25)
+	Player 1 (stayed): 0 points, 23 live points (+23)
+	Player 2 (out): 0 points, 0 live points (+0)
+	Player 3 : 0 points, 32 live points (+32)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 has stayed!
+Player 0: 0 points, 25 live points (+25)
+
+Player 1 is taking their turn
+Player 1 has stayed!
+Player 1: 0 points, 23 live points (+23)
+
+Player 2 is taking their turn
+Player 2 is out of the round!
+Player 2: 0 points, 0 live points (+0)
+
+Player 3 is taking their turn
+Player 3 chooses to stay!
+Player 3: 0 points, 32 live points (+32)
+Scoreboard:
+	Player 0 (stayed): 0 points, 25 live points (+25)
+	Player 1 (stayed): 0 points, 23 live points (+23)
+	Player 2 (out): 0 points, 0 live points (+0)
+	Player 3 (stayed): 0 points, 32 live points (+32)
+
+Round is over!
+Player 0 scored 25 points this round!
+Player 0's cards in hand:
+		"Number: 2"
+		"Number: 12"
+		"Action: Second Chance"
+		"Number: 11"
+Player 1 scored 23 points this round!
+Player 1's cards in hand:
+		"Number: 4"
+		"Number: 7"
+		"Number: 12"
+		"Action: Freeze"
+Player 2 scored 0 points this round!
+Player 2's cards in hand:
+		"Number: 3"
+		"Number: 6"
+		"Number: 12"
+Player 3 scored 32 points this round!
+Player 3's cards in hand:
+		"Number: 0"
+		"Number: 5"
+		"Modifier: +6"
+		"Number: 12"
+		"Number: 9"
+Scoreboard:
+	Player 0 : 25 points, 25 live points (+0)
+	Player 1 : 23 points, 23 live points (+0)
+	Player 2 : 0 points, 0 live points (+0)
+	Player 3 : 32 points, 32 live points (+0)
+
+Play a round of Flip 7!
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 5"
+Player 0: 25 points, 30 live points (+5)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 3"
+Player 1: 23 points, 26 live points (+3)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 8"
+Player 2: 0 points, 8 live points (+8)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 8"
+Player 3: 32 points, 40 live points (+8)
+Scoreboard:
+	Player 0 : 25 points, 30 live points (+5)
+	Player 1 : 23 points, 26 live points (+3)
+	Player 2 : 0 points, 8 live points (+8)
+	Player 3 : 32 points, 40 live points (+8)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 7"
+Player 0: 25 points, 37 live points (+12)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 8"
+Player 1: 23 points, 34 live points (+11)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 12"
+Player 2: 0 points, 20 live points (+20)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 11"
+Player 3: 32 points, 51 live points (+19)
+Scoreboard:
+	Player 0 : 25 points, 37 live points (+12)
+	Player 1 : 23 points, 34 live points (+11)
+	Player 2 : 0 points, 20 live points (+20)
+	Player 3 : 32 points, 51 live points (+19)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 6"
+Player 0: 25 points, 43 live points (+18)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 7"
+Player 1: 23 points, 41 live points (+18)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 9"
+Player 2: 0 points, 29 live points (+29)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 10"
+Player 3: 32 points, 61 live points (+29)
+Scoreboard:
+	Player 0 : 25 points, 43 live points (+18)
+	Player 1 : 23 points, 41 live points (+18)
+	Player 2 : 0 points, 29 live points (+29)
+	Player 3 : 32 points, 61 live points (+29)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 9"
+Player 0: 25 points, 52 live points (+27)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 12"
+Player 1: 23 points, 53 live points (+30)
+
+Player 2 is taking their turn
+Player 2 chooses to stay!
+Player 2: 0 points, 29 live points (+29)
+
+Player 3 is taking their turn
+Player 3 chooses to stay!
+Player 3: 32 points, 61 live points (+29)
+Scoreboard:
+	Player 0 : 25 points, 52 live points (+27)
+	Player 1 : 23 points, 53 live points (+30)
+	Player 2 (stayed): 0 points, 29 live points (+29)
+	Player 3 (stayed): 32 points, 61 live points (+29)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to stay!
+Player 0: 25 points, 52 live points (+27)
+
+Player 1 is taking their turn
+Player 1 chooses to stay!
+Player 1: 23 points, 53 live points (+30)
+
+Player 2 is taking their turn
+Player 2 has stayed!
+Player 2: 0 points, 29 live points (+29)
+
+Player 3 is taking their turn
+Player 3 has stayed!
+Player 3: 32 points, 61 live points (+29)
+Scoreboard:
+	Player 0 (stayed): 25 points, 52 live points (+27)
+	Player 1 (stayed): 23 points, 53 live points (+30)
+	Player 2 (stayed): 0 points, 29 live points (+29)
+	Player 3 (stayed): 32 points, 61 live points (+29)
+
+Round is over!
+Player 0 scored 27 points this round!
+Player 0's cards in hand:
+		"Number: 5"
+		"Number: 7"
+		"Number: 6"
+		"Number: 9"
+Player 1 scored 30 points this round!
+Player 1's cards in hand:
+		"Number: 3"
+		"Number: 8"
+		"Number: 7"
+		"Number: 12"
+Player 2 scored 29 points this round!
+Player 2's cards in hand:
+		"Number: 8"
+		"Number: 12"
+		"Number: 9"
+Player 3 scored 29 points this round!
+Player 3's cards in hand:
+		"Number: 8"
+		"Number: 11"
+		"Number: 10"
+Scoreboard:
+	Player 0 : 52 points, 52 live points (+0)
+	Player 1 : 53 points, 53 live points (+0)
+	Player 2 : 29 points, 29 live points (+0)
+	Player 3 : 61 points, 61 live points (+0)
+
+Play a round of Flip 7!
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 7"
+Player 0: 52 points, 59 live points (+7)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 11"
+Player 1: 53 points, 64 live points (+11)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 10"
+Player 2: 29 points, 39 live points (+10)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 10"
+Player 3: 61 points, 71 live points (+10)
+Scoreboard:
+	Player 0 : 52 points, 59 live points (+7)
+	Player 1 : 53 points, 64 live points (+11)
+	Player 2 : 29 points, 39 live points (+10)
+	Player 3 : 61 points, 71 live points (+10)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 5"
+Player 0: 52 points, 64 live points (+12)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 11"
+Player 1's hand already has "Number: 11" in it!
+Player 1 busts!
+Player 1 is out of the round!
+Player 1: 53 points, 53 live points (+0)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 8"
+Player 2: 29 points, 47 live points (+18)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Action: Flip Three"
+Player 3 drew Flip Three
+Player 3: 61 points, 71 live points (+10)
+Player 3 choosing Flip Three target..
+Targeting Player 3
+Player 3 must hit!
+Player 3 has drawn "Number: 12"
+Player 3 must hit!
+Player 3 has drawn "Number: 11"
+Player 3 must hit!
+Player 3 has drawn "Number: 11"
+Player 3's hand already has "Number: 11" in it!
+Player 3 busts!
+Player 3 is out of the round!
+Scoreboard:
+	Player 0 : 52 points, 64 live points (+12)
+	Player 1 (out): 53 points, 53 live points (+0)
+	Player 2 : 29 points, 47 live points (+18)
+	Player 3 (out): 61 points, 61 live points (+0)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Action: Flip Three"
+Player 0 drew Flip Three
+Player 0: 52 points, 64 live points (+12)
+Player 0 choosing Flip Three target..
+Targeting Player 0
+Player 0 must hit!
+Player 0 has drawn "Number: 6"
+Player 0 must hit!
+Player 0 has drawn "Number: 5"
+Player 0's hand already has "Number: 5" in it!
+Player 0 busts!
+Player 0 is out of the round!
+Player 0 is out of the round!
+
+Player 1 is taking their turn
+Player 1 is out of the round!
+Player 1: 53 points, 53 live points (+0)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 11"
+Player 2: 29 points, 58 live points (+29)
+
+Player 3 is taking their turn
+Player 3 is out of the round!
+Player 3: 61 points, 61 live points (+0)
+Scoreboard:
+	Player 0 (out): 52 points, 52 live points (+0)
+	Player 1 (out): 53 points, 53 live points (+0)
+	Player 2 : 29 points, 58 live points (+29)
+	Player 3 (out): 61 points, 61 live points (+0)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 is out of the round!
+Player 0: 52 points, 52 live points (+0)
+
+Player 1 is taking their turn
+Player 1 is out of the round!
+Player 1: 53 points, 53 live points (+0)
+
+Player 2 is taking their turn
+Player 2 chooses to stay!
+Player 2: 29 points, 58 live points (+29)
+
+Player 3 is taking their turn
+Player 3 is out of the round!
+Player 3: 61 points, 61 live points (+0)
+Scoreboard:
+	Player 0 (out): 52 points, 52 live points (+0)
+	Player 1 (out): 53 points, 53 live points (+0)
+	Player 2 (stayed): 29 points, 58 live points (+29)
+	Player 3 (out): 61 points, 61 live points (+0)
+
+Round is over!
+Player 0 scored 0 points this round!
+Player 0's cards in hand:
+		"Number: 7"
+		"Number: 5"
+		"Number: 6"
+Player 1 scored 0 points this round!
+Player 1's cards in hand:
+		"Number: 11"
+Player 2 scored 29 points this round!
+Player 2's cards in hand:
+		"Number: 10"
+		"Number: 8"
+		"Number: 11"
+Player 3 scored 0 points this round!
+Player 3's cards in hand:
+		"Number: 10"
+		"Number: 12"
+		"Number: 11"
+Scoreboard:
+	Player 0 : 52 points, 52 live points (+0)
+	Player 1 : 53 points, 53 live points (+0)
+	Player 2 : 58 points, 58 live points (+0)
+	Player 3 : 61 points, 61 live points (+0)
+
+Play a round of Flip 7!
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 12"
+Player 0: 52 points, 64 live points (+12)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 10"
+Player 1: 53 points, 63 live points (+10)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Action: Second Chance"
+Player 2 drew a second chance!
+Player 2: 58 points, 58 live points (+0)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 6"
+Player 3: 61 points, 67 live points (+6)
+Scoreboard:
+	Player 0 : 52 points, 64 live points (+12)
+	Player 1 : 53 points, 63 live points (+10)
+	Player 2 : 58 points, 58 live points (+0)
+	Player 3 : 61 points, 67 live points (+6)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Action: Second Chance"
+Player 0 drew a second chance!
+Player 0: 52 points, 64 live points (+12)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Modifier: +2"
+Player 1: 53 points, 65 live points (+12)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Modifier: x2"
+Player 2: 58 points, 58 live points (+0)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 10"
+Player 3: 61 points, 77 live points (+16)
+Scoreboard:
+	Player 0 : 52 points, 64 live points (+12)
+	Player 1 : 53 points, 65 live points (+12)
+	Player 2 : 58 points, 58 live points (+0)
+	Player 3 : 61 points, 77 live points (+16)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 11"
+Player 0: 52 points, 75 live points (+23)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 1"
+Player 1: 53 points, 66 live points (+13)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 4"
+Player 2: 58 points, 66 live points (+8)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 10"
+Player 3's hand already has "Number: 10" in it!
+Player 3 busts!
+Player 3 is out of the round!
+Player 3: 61 points, 61 live points (+0)
+Scoreboard:
+	Player 0 : 52 points, 75 live points (+23)
+	Player 1 : 53 points, 66 live points (+13)
+	Player 2 : 58 points, 66 live points (+8)
+	Player 3 (out): 61 points, 61 live points (+0)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 10"
+Player 0: 52 points, 85 live points (+33)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Modifier: +10"
+Player 1: 53 points, 76 live points (+23)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 10"
+Player 2: 58 points, 86 live points (+28)
+
+Player 3 is taking their turn
+Player 3 is out of the round!
+Player 3: 61 points, 61 live points (+0)
+Scoreboard:
+	Player 0 : 52 points, 85 live points (+33)
+	Player 1 : 53 points, 76 live points (+23)
+	Player 2 : 58 points, 86 live points (+28)
+	Player 3 (out): 61 points, 61 live points (+0)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to stay!
+Player 0: 52 points, 85 live points (+33)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 9"
+Player 1: 53 points, 85 live points (+32)
+
+Player 2 is taking their turn
+Player 2 chooses to stay!
+Player 2: 58 points, 86 live points (+28)
+
+Player 3 is taking their turn
+Player 3 is out of the round!
+Player 3: 61 points, 61 live points (+0)
+Scoreboard:
+	Player 0 (stayed): 52 points, 85 live points (+33)
+	Player 1 : 53 points, 85 live points (+32)
+	Player 2 (stayed): 58 points, 86 live points (+28)
+	Player 3 (out): 61 points, 61 live points (+0)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 has stayed!
+Player 0: 52 points, 85 live points (+33)
+
+Player 1 is taking their turn
+Player 1 chooses to stay!
+Player 1: 53 points, 85 live points (+32)
+
+Player 2 is taking their turn
+Player 2 has stayed!
+Player 2: 58 points, 86 live points (+28)
+
+Player 3 is taking their turn
+Player 3 is out of the round!
+Player 3: 61 points, 61 live points (+0)
+Scoreboard:
+	Player 0 (stayed): 52 points, 85 live points (+33)
+	Player 1 (stayed): 53 points, 85 live points (+32)
+	Player 2 (stayed): 58 points, 86 live points (+28)
+	Player 3 (out): 61 points, 61 live points (+0)
+
+Round is over!
+Player 0 scored 33 points this round!
+Player 0's cards in hand:
+		"Number: 12"
+		"Action: Second Chance"
+		"Number: 11"
+		"Number: 10"
+Player 1 scored 32 points this round!
+Player 1's cards in hand:
+		"Number: 10"
+		"Modifier: +2"
+		"Number: 1"
+		"Modifier: +10"
+		"Number: 9"
+Player 2 scored 28 points this round!
+Player 2's cards in hand:
+		"Action: Second Chance"
+		"Modifier: x2"
+		"Number: 4"
+		"Number: 10"
+Player 3 scored 0 points this round!
+Player 3's cards in hand:
+		"Number: 6"
+		"Number: 10"
+Scoreboard:
+	Player 0 : 85 points, 85 live points (+0)
+	Player 1 : 85 points, 85 live points (+0)
+	Player 2 : 86 points, 86 live points (+0)
+	Player 3 : 61 points, 61 live points (+0)
+
+Play a round of Flip 7!
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Action: Freeze"
+Player 0 Drew a Freeze!
+Targeting Player 2 because they have the highest score 86 (or were the only valid target)
+Player 2 is forced to stay!
+Player 0: 85 points, 85 live points (+0)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 8"
+Player 1: 85 points, 93 live points (+8)
+
+Player 2 is taking their turn
+Player 2 has stayed!
+Player 2: 86 points, 86 live points (+0)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 7"
+Player 3: 61 points, 68 live points (+7)
+Scoreboard:
+	Player 0 : 85 points, 85 live points (+0)
+	Player 1 : 85 points, 93 live points (+8)
+	Player 2 (stayed): 86 points, 86 live points (+0)
+	Player 3 : 61 points, 68 live points (+7)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Action: Freeze"
+Player 0 Drew a Freeze!
+Targeting Player 1 because they have the highest score 93 (or were the only valid target)
+Player 1 is forced to stay!
+Player 0: 85 points, 85 live points (+0)
+
+Player 1 is taking their turn
+Player 1 has stayed!
+Player 1: 85 points, 93 live points (+8)
+
+Player 2 is taking their turn
+Player 2 has stayed!
+Player 2: 86 points, 86 live points (+0)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 9"
+Player 3: 61 points, 77 live points (+16)
+Scoreboard:
+	Player 0 : 85 points, 85 live points (+0)
+	Player 1 (stayed): 85 points, 93 live points (+8)
+	Player 2 (stayed): 86 points, 86 live points (+0)
+	Player 3 : 61 points, 77 live points (+16)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 9"
+Player 0: 85 points, 94 live points (+9)
+
+Player 1 is taking their turn
+Player 1 has stayed!
+Player 1: 85 points, 93 live points (+8)
+
+Player 2 is taking their turn
+Player 2 has stayed!
+Player 2: 86 points, 86 live points (+0)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 10"
+Player 3: 61 points, 87 live points (+26)
+Scoreboard:
+	Player 0 : 85 points, 94 live points (+9)
+	Player 1 (stayed): 85 points, 93 live points (+8)
+	Player 2 (stayed): 86 points, 86 live points (+0)
+	Player 3 : 61 points, 87 live points (+26)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 3"
+Player 0: 85 points, 97 live points (+12)
+
+Player 1 is taking their turn
+Player 1 has stayed!
+Player 1: 85 points, 93 live points (+8)
+
+Player 2 is taking their turn
+Player 2 has stayed!
+Player 2: 86 points, 86 live points (+0)
+
+Player 3 is taking their turn
+Player 3 chooses to stay!
+Player 3: 61 points, 87 live points (+26)
+Scoreboard:
+	Player 0 : 85 points, 97 live points (+12)
+	Player 1 (stayed): 85 points, 93 live points (+8)
+	Player 2 (stayed): 86 points, 86 live points (+0)
+	Player 3 (stayed): 61 points, 87 live points (+26)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 6"
+Player 0: 85 points, 103 live points (+18)
+
+Player 1 is taking their turn
+Player 1 has stayed!
+Player 1: 85 points, 93 live points (+8)
+
+Player 2 is taking their turn
+Player 2 has stayed!
+Player 2: 86 points, 86 live points (+0)
+
+Player 3 is taking their turn
+Player 3 has stayed!
+Player 3: 61 points, 87 live points (+26)
+Scoreboard:
+	Player 0 : 85 points, 103 live points (+18)
+	Player 1 (stayed): 85 points, 93 live points (+8)
+	Player 2 (stayed): 86 points, 86 live points (+0)
+	Player 3 (stayed): 61 points, 87 live points (+26)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 11"
+Player 0: 85 points, 114 live points (+29)
+
+Player 1 is taking their turn
+Player 1 has stayed!
+Player 1: 85 points, 93 live points (+8)
+
+Player 2 is taking their turn
+Player 2 has stayed!
+Player 2: 86 points, 86 live points (+0)
+
+Player 3 is taking their turn
+Player 3 has stayed!
+Player 3: 61 points, 87 live points (+26)
+Scoreboard:
+	Player 0 : 85 points, 114 live points (+29)
+	Player 1 (stayed): 85 points, 93 live points (+8)
+	Player 2 (stayed): 86 points, 86 live points (+0)
+	Player 3 (stayed): 61 points, 87 live points (+26)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to stay!
+Player 0: 85 points, 114 live points (+29)
+
+Player 1 is taking their turn
+Player 1 has stayed!
+Player 1: 85 points, 93 live points (+8)
+
+Player 2 is taking their turn
+Player 2 has stayed!
+Player 2: 86 points, 86 live points (+0)
+
+Player 3 is taking their turn
+Player 3 has stayed!
+Player 3: 61 points, 87 live points (+26)
+Scoreboard:
+	Player 0 (stayed): 85 points, 114 live points (+29)
+	Player 1 (stayed): 85 points, 93 live points (+8)
+	Player 2 (stayed): 86 points, 86 live points (+0)
+	Player 3 (stayed): 61 points, 87 live points (+26)
+
+Round is over!
+Player 0 scored 29 points this round!
+Player 0's cards in hand:
+		"Number: 9"
+		"Number: 3"
+		"Number: 6"
+		"Number: 11"
+Player 1 scored 8 points this round!
+Player 1's cards in hand:
+		"Number: 8"
+		"Action: Freeze"
+Player 2 scored 0 points this round!
+Player 2's cards in hand:
+		"Action: Freeze"
+Player 3 scored 26 points this round!
+Player 3's cards in hand:
+		"Number: 7"
+		"Number: 9"
+		"Number: 10"
+Scoreboard:
+	Player 0 : 114 points, 114 live points (+0)
+	Player 1 : 93 points, 93 live points (+0)
+	Player 2 : 86 points, 86 live points (+0)
+	Player 3 : 87 points, 87 live points (+0)
+
+Play a round of Flip 7!
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 9"
+Player 0: 114 points, 123 live points (+9)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 4"
+Player 1: 93 points, 97 live points (+4)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 5"
+Player 2: 86 points, 91 live points (+5)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 8"
+Player 3: 87 points, 95 live points (+8)
+Scoreboard:
+	Player 0 : 114 points, 123 live points (+9)
+	Player 1 : 93 points, 97 live points (+4)
+	Player 2 : 86 points, 91 live points (+5)
+	Player 3 : 87 points, 95 live points (+8)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 12"
+Player 0: 114 points, 135 live points (+21)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 8"
+Player 1: 93 points, 105 live points (+12)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 7"
+Player 2: 86 points, 98 live points (+12)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Modifier: +8"
+Player 3: 87 points, 103 live points (+16)
+Scoreboard:
+	Player 0 : 114 points, 135 live points (+21)
+	Player 1 : 93 points, 105 live points (+12)
+	Player 2 : 86 points, 98 live points (+12)
+	Player 3 : 87 points, 103 live points (+16)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 12"
+Player 0's hand already has "Number: 12" in it!
+Player 0 busts!
+Player 0 is out of the round!
+Player 0: 114 points, 114 live points (+0)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 10"
+Player 1: 93 points, 115 live points (+22)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 2"
+Player 2: 86 points, 100 live points (+14)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Modifier: +4"
+Player 3: 87 points, 107 live points (+20)
+Scoreboard:
+	Player 0 (out): 114 points, 114 live points (+0)
+	Player 1 : 93 points, 115 live points (+22)
+	Player 2 : 86 points, 100 live points (+14)
+	Player 3 : 87 points, 107 live points (+20)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 is out of the round!
+Player 0: 114 points, 114 live points (+0)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 11"
+Player 1: 93 points, 126 live points (+33)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 9"
+Player 2: 86 points, 109 live points (+23)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 6"
+Player 3: 87 points, 113 live points (+26)
+Scoreboard:
+	Player 0 (out): 114 points, 114 live points (+0)
+	Player 1 : 93 points, 126 live points (+33)
+	Player 2 : 86 points, 109 live points (+23)
+	Player 3 : 87 points, 113 live points (+26)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 is out of the round!
+Player 0: 114 points, 114 live points (+0)
+
+Player 1 is taking their turn
+Player 1 chooses to stay!
+Player 1: 93 points, 126 live points (+33)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 11"
+Player 2: 86 points, 120 live points (+34)
+
+Player 3 is taking their turn
+Player 3 chooses to stay!
+Player 3: 87 points, 113 live points (+26)
+Scoreboard:
+	Player 0 (out): 114 points, 114 live points (+0)
+	Player 1 (stayed): 93 points, 126 live points (+33)
+	Player 2 : 86 points, 120 live points (+34)
+	Player 3 (stayed): 87 points, 113 live points (+26)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 is out of the round!
+Player 0: 114 points, 114 live points (+0)
+
+Player 1 is taking their turn
+Player 1 has stayed!
+Player 1: 93 points, 126 live points (+33)
+
+Player 2 is taking their turn
+Player 2 chooses to stay!
+Player 2: 86 points, 120 live points (+34)
+
+Player 3 is taking their turn
+Player 3 has stayed!
+Player 3: 87 points, 113 live points (+26)
+Scoreboard:
+	Player 0 (out): 114 points, 114 live points (+0)
+	Player 1 (stayed): 93 points, 126 live points (+33)
+	Player 2 (stayed): 86 points, 120 live points (+34)
+	Player 3 (stayed): 87 points, 113 live points (+26)
+
+Round is over!
+Player 0 scored 0 points this round!
+Player 0's cards in hand:
+		"Number: 9"
+		"Number: 12"
+Player 1 scored 33 points this round!
+Player 1's cards in hand:
+		"Number: 4"
+		"Number: 8"
+		"Number: 10"
+		"Number: 11"
+Player 2 scored 34 points this round!
+Player 2's cards in hand:
+		"Number: 5"
+		"Number: 7"
+		"Number: 2"
+		"Number: 9"
+		"Number: 11"
+Player 3 scored 26 points this round!
+Player 3's cards in hand:
+		"Number: 8"
+		"Modifier: +8"
+		"Modifier: +4"
+		"Number: 6"
+Scoreboard:
+	Player 0 : 114 points, 114 live points (+0)
+	Player 1 : 126 points, 126 live points (+0)
+	Player 2 : 120 points, 120 live points (+0)
+	Player 3 : 113 points, 113 live points (+0)
+
+Play a round of Flip 7!
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 7"
+Player 0: 114 points, 121 live points (+7)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 12"
+Player 1: 126 points, 138 live points (+12)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 8"
+Player 2: 120 points, 128 live points (+8)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Action: Flip Three"
+Player 3 drew Flip Three
+Player 3: 113 points, 113 live points (+0)
+Player 3 choosing Flip Three target..
+Targeting Player 2
+Player 2 must hit!
+Player 2 has drawn "Number: 9"
+Player 2 must hit!
+Player 2 has drawn "Number: 4"
+Player 2 must hit!
+Player 2 has drawn "Number: 10"
+Scoreboard:
+	Player 0 : 114 points, 121 live points (+7)
+	Player 1 : 126 points, 138 live points (+12)
+	Player 2 : 120 points, 151 live points (+31)
+	Player 3 : 113 points, 113 live points (+0)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 2"
+Player 0: 114 points, 123 live points (+9)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Action: Freeze"
+Player 1 Drew a Freeze!
+Targeting Player 2 because they have the highest score 151 (or were the only valid target)
+Player 2 is forced to stay!
+Player 1: 126 points, 138 live points (+12)
+
+Player 2 is taking their turn
+Player 2 has stayed!
+Player 2: 120 points, 151 live points (+31)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 7"
+Player 3: 113 points, 120 live points (+7)
+Scoreboard:
+	Player 0 : 114 points, 123 live points (+9)
+	Player 1 : 126 points, 138 live points (+12)
+	Player 2 (stayed): 120 points, 151 live points (+31)
+	Player 3 : 113 points, 120 live points (+7)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 10"
+Player 0: 114 points, 133 live points (+19)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 9"
+Player 1: 126 points, 147 live points (+21)
+
+Player 2 is taking their turn
+Player 2 has stayed!
+Player 2: 120 points, 151 live points (+31)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 6"
+Player 3: 113 points, 126 live points (+13)
+Scoreboard:
+	Player 0 : 114 points, 133 live points (+19)
+	Player 1 : 126 points, 147 live points (+21)
+	Player 2 (stayed): 120 points, 151 live points (+31)
+	Player 3 : 113 points, 126 live points (+13)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 9"
+Player 0: 114 points, 142 live points (+28)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Action: Second Chance"
+Player 1 drew a second chance!
+Player 1: 126 points, 147 live points (+21)
+
+Player 2 is taking their turn
+Player 2 has stayed!
+Player 2: 120 points, 151 live points (+31)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 8"
+Player 3: 113 points, 134 live points (+21)
+Scoreboard:
+	Player 0 : 114 points, 142 live points (+28)
+	Player 1 : 126 points, 147 live points (+21)
+	Player 2 (stayed): 120 points, 151 live points (+31)
+	Player 3 : 113 points, 134 live points (+21)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to stay!
+Player 0: 114 points, 142 live points (+28)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 5"
+Player 1: 126 points, 152 live points (+26)
+
+Player 2 is taking their turn
+Player 2 has stayed!
+Player 2: 120 points, 151 live points (+31)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 4"
+Player 3: 113 points, 138 live points (+25)
+Scoreboard:
+	Player 0 (stayed): 114 points, 142 live points (+28)
+	Player 1 : 126 points, 152 live points (+26)
+	Player 2 (stayed): 120 points, 151 live points (+31)
+	Player 3 : 113 points, 138 live points (+25)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 has stayed!
+Player 0: 114 points, 142 live points (+28)
+
+Player 1 is taking their turn
+Player 1 chooses to stay!
+Player 1: 126 points, 152 live points (+26)
+
+Player 2 is taking their turn
+Player 2 has stayed!
+Player 2: 120 points, 151 live points (+31)
+
+Player 3 is taking their turn
+Player 3 chooses to stay!
+Player 3: 113 points, 138 live points (+25)
+Scoreboard:
+	Player 0 (stayed): 114 points, 142 live points (+28)
+	Player 1 (stayed): 126 points, 152 live points (+26)
+	Player 2 (stayed): 120 points, 151 live points (+31)
+	Player 3 (stayed): 113 points, 138 live points (+25)
+
+Round is over!
+Player 0 scored 28 points this round!
+Player 0's cards in hand:
+		"Number: 7"
+		"Number: 2"
+		"Number: 10"
+		"Number: 9"
+Player 1 scored 26 points this round!
+Player 1's cards in hand:
+		"Number: 12"
+		"Number: 9"
+		"Action: Second Chance"
+		"Number: 5"
+Player 2 scored 31 points this round!
+Player 2's cards in hand:
+		"Number: 8"
+		"Number: 9"
+		"Number: 4"
+		"Number: 10"
+		"Action: Freeze"
+Player 3 scored 25 points this round!
+Player 3's cards in hand:
+		"Number: 7"
+		"Number: 6"
+		"Number: 8"
+		"Number: 4"
+Scoreboard:
+	Player 0 : 142 points, 142 live points (+0)
+	Player 1 : 152 points, 152 live points (+0)
+	Player 2 : 151 points, 151 live points (+0)
+	Player 3 : 138 points, 138 live points (+0)
+
+Play a round of Flip 7!
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 9"
+Player 0: 142 points, 151 live points (+9)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 11"
+Player 1: 152 points, 163 live points (+11)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 12"
+Player 2: 151 points, 163 live points (+12)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Modifier: +10"
+Player 3: 138 points, 148 live points (+10)
+Scoreboard:
+	Player 0 : 142 points, 151 live points (+9)
+	Player 1 : 152 points, 163 live points (+11)
+	Player 2 : 151 points, 163 live points (+12)
+	Player 3 : 138 points, 148 live points (+10)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 5"
+Player 0: 142 points, 156 live points (+14)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Modifier: +6"
+Player 1: 152 points, 169 live points (+17)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Modifier: +2"
+Player 2: 151 points, 165 live points (+14)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Modifier: +4"
+Player 3: 138 points, 152 live points (+14)
+Scoreboard:
+	Player 0 : 142 points, 156 live points (+14)
+	Player 1 : 152 points, 169 live points (+17)
+	Player 2 : 151 points, 165 live points (+14)
+	Player 3 : 138 points, 152 live points (+14)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 9"
+Player 0's hand already has "Number: 9" in it!
+Player 0 busts!
+Player 0 is out of the round!
+Player 0: 142 points, 142 live points (+0)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 12"
+Player 1: 152 points, 181 live points (+29)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 9"
+Player 2: 151 points, 174 live points (+23)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 12"
+Player 3: 138 points, 164 live points (+26)
+Scoreboard:
+	Player 0 (out): 142 points, 142 live points (+0)
+	Player 1 : 152 points, 181 live points (+29)
+	Player 2 : 151 points, 174 live points (+23)
+	Player 3 : 138 points, 164 live points (+26)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 is out of the round!
+Player 0: 142 points, 142 live points (+0)
+
+Player 1 is taking their turn
+Player 1 chooses to stay!
+Player 1: 152 points, 181 live points (+29)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 6"
+Player 2: 151 points, 180 live points (+29)
+
+Player 3 is taking their turn
+Player 3 chooses to stay!
+Player 3: 138 points, 164 live points (+26)
+Scoreboard:
+	Player 0 (out): 142 points, 142 live points (+0)
+	Player 1 (stayed): 152 points, 181 live points (+29)
+	Player 2 : 151 points, 180 live points (+29)
+	Player 3 (stayed): 138 points, 164 live points (+26)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 is out of the round!
+Player 0: 142 points, 142 live points (+0)
+
+Player 1 is taking their turn
+Player 1 has stayed!
+Player 1: 152 points, 181 live points (+29)
+
+Player 2 is taking their turn
+Player 2 chooses to stay!
+Player 2: 151 points, 180 live points (+29)
+
+Player 3 is taking their turn
+Player 3 has stayed!
+Player 3: 138 points, 164 live points (+26)
+Scoreboard:
+	Player 0 (out): 142 points, 142 live points (+0)
+	Player 1 (stayed): 152 points, 181 live points (+29)
+	Player 2 (stayed): 151 points, 180 live points (+29)
+	Player 3 (stayed): 138 points, 164 live points (+26)
+
+Round is over!
+Player 0 scored 0 points this round!
+Player 0's cards in hand:
+		"Number: 9"
+		"Number: 5"
+Player 1 scored 29 points this round!
+Player 1's cards in hand:
+		"Number: 11"
+		"Modifier: +6"
+		"Number: 12"
+Player 2 scored 29 points this round!
+Player 2's cards in hand:
+		"Number: 12"
+		"Modifier: +2"
+		"Number: 9"
+		"Number: 6"
+Player 3 scored 26 points this round!
+Player 3's cards in hand:
+		"Modifier: +10"
+		"Modifier: +4"
+		"Number: 12"
+Scoreboard:
+	Player 0 : 142 points, 142 live points (+0)
+	Player 1 : 181 points, 181 live points (+0)
+	Player 2 : 180 points, 180 live points (+0)
+	Player 3 : 164 points, 164 live points (+0)
+
+Play a round of Flip 7!
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 11"
+Player 0: 142 points, 153 live points (+11)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 12"
+Player 1: 181 points, 193 live points (+12)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 11"
+Player 2: 180 points, 191 live points (+11)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 7"
+Player 3: 164 points, 171 live points (+7)
+Scoreboard:
+	Player 0 : 142 points, 153 live points (+11)
+	Player 1 : 181 points, 193 live points (+12)
+	Player 2 : 180 points, 191 live points (+11)
+	Player 3 : 164 points, 171 live points (+7)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 10"
+Player 0: 142 points, 163 live points (+21)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 10"
+Player 1: 181 points, 203 live points (+22)
+
+Player 2 is taking their turn
+Player 2 chooses to hit!
+Player 2 has drawn "Number: 11"
+Player 2's hand already has "Number: 11" in it!
+Player 2 busts!
+Player 2 is out of the round!
+Player 2: 180 points, 180 live points (+0)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Modifier: +8"
+Player 3: 164 points, 179 live points (+15)
+Scoreboard:
+	Player 0 : 142 points, 163 live points (+21)
+	Player 1 : 181 points, 203 live points (+22)
+	Player 2 (out): 180 points, 180 live points (+0)
+	Player 3 : 164 points, 179 live points (+15)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 chooses to hit!
+Player 0 has drawn "Number: 10"
+Player 0's hand already has "Number: 10" in it!
+Player 0 busts!
+Player 0 is out of the round!
+Player 0: 142 points, 142 live points (+0)
+
+Player 1 is taking their turn
+Player 1 chooses to hit!
+Player 1 has drawn "Number: 11"
+Player 1: 181 points, 214 live points (+33)
+
+Player 2 is taking their turn
+Player 2 is out of the round!
+Player 2: 180 points, 180 live points (+0)
+
+Player 3 is taking their turn
+Player 3 chooses to hit!
+Player 3 has drawn "Number: 11"
+Player 3: 164 points, 190 live points (+26)
+Scoreboard:
+	Player 0 (out): 142 points, 142 live points (+0)
+	Player 1 : 181 points, 214 live points (+33)
+	Player 2 (out): 180 points, 180 live points (+0)
+	Player 3 : 164 points, 190 live points (+26)
+
+Play a turn of Flip 7!
+
+Player 0 is taking their turn
+Player 0 is out of the round!
+Player 0: 142 points, 142 live points (+0)
+
+Player 1 is taking their turn
+Player 1 chooses to stay!
+Player 1: 181 points, 214 live points (+33)
+
+Player 2 is taking their turn
+Player 2 is out of the round!
+Player 2: 180 points, 180 live points (+0)
+
+Player 3 is taking their turn
+Player 3 chooses to stay!
+Player 3: 164 points, 190 live points (+26)
+Scoreboard:
+	Player 0 (out): 142 points, 142 live points (+0)
+	Player 1 (stayed): 181 points, 214 live points (+33)
+	Player 2 (out): 180 points, 180 live points (+0)
+	Player 3 (stayed): 164 points, 190 live points (+26)
+
+Round is over!
+Player 0 scored 0 points this round!
+Player 0's cards in hand:
+		"Number: 11"
+		"Number: 10"
+Player 1 scored 33 points this round!
+Player 1's cards in hand:
+		"Number: 12"
+		"Number: 10"
+		"Number: 11"
+Player 2 scored 0 points this round!
+Player 2's cards in hand:
+		"Number: 11"
+Player 3 scored 26 points this round!
+Player 3's cards in hand:
+		"Number: 7"
+		"Modifier: +8"
+		"Number: 11"
+Scoreboard:
+	Player 0 : 142 points, 142 live points (+0)
+	Player 1 : 214 points, 214 live points (+0)
+	Player 2 : 180 points, 180 live points (+0)
+	Player 3 : 190 points, 190 live points (+0)
+
+Game over!
+Winner: Player 1 with 214 points!
+Scoreboard:
+	Player 0 : 142 points, 142 live points (+0)
+	Player 1 : 214 points, 214 live points (+0)
+	Player 2 : 180 points, 180 live points (+0)
+	Player 3 : 190 points, 190 live points (+0)
