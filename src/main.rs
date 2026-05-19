@@ -2,14 +2,16 @@ use clap::Parser;
 use debug_print::debug_println;
 use rand::seq::SliceRandom;
 use std::collections::{HashMap, HashSet, VecDeque};
+use std::sync::OnceLock;
 use std::vec;
+use std::hash::{Hash, Hasher};
 
 const EXPECTED_NUM_CARDS: usize = 94;
-static SIMULATOR_MODE: bool = false;
+static SIMULATOR_MODE: OnceLock<bool> = OnceLock::new();
 
 macro_rules! simulator_println {
     ($($arg:tt)*) => {{
-        if SIMULATOR_MODE {
+        if *SIMULATOR_MODE.get().unwrap() {
             println!($($arg)*);
         }
     }}
@@ -181,6 +183,7 @@ impl Deck {
     }
 }
 
+#[derive(Eq, Clone)]
 struct Player {
     name: String,
     hand: Vec<Card>,
@@ -191,6 +194,18 @@ struct Player {
     flip7: bool,
     stay: bool,
     strategies: Vec<Strategy>,
+}
+
+impl PartialEq for Player {
+    fn eq(&self, other: &Self) -> bool {
+        self.name == other.name
+    }
+}
+
+impl Hash for Player {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.name.hash(state);
+    }
 }
 
 impl Player {
@@ -513,7 +528,10 @@ impl Game {
                                         return Some(card);
                                     }
                                     ActionType::SecondChance => {
-                                        simulator_println!("{0} drew a second chance!", player.name);
+                                        simulator_println!(
+                                            "{0} drew a second chance!",
+                                            player.name
+                                        );
                                         if player.second_chance {
                                             simulator_println!("But they already had one!");
                                             // This is such an edge case but whatever
@@ -594,6 +612,107 @@ impl Game {
         }
     }
 
+    pub fn single_turn(
+        &mut self,
+        current_player: &mut Player,
+        first_round: bool,
+        i: usize,
+    ) -> bool {
+        let handle_game_action = self.player_turn(current_player, first_round);
+
+        simulator_println!(
+            "{0}: {1} points, {2} live points (+{3})",
+            current_player.name,
+            current_player.score,
+            current_player.get_live_score(),
+            current_player.get_points_scored()
+        );
+
+        match handle_game_action {
+            Some(card) => {
+                match card {
+                    Card::Number(value) => {
+                        if value == -1 {
+                            // flipped 7
+                            return true;
+                        } else {
+                            eprintln!("Error: Encountered a number card not handled during a turn");
+                            std::process::exit(-1);
+                        }
+                    }
+                    Card::Action(ref t) => match t {
+                        ActionType::Flip3 => {
+                            simulator_println!(
+                                "{} choosing Flip Three target..",
+                                current_player.name
+                            );
+                            if current_player.strategies.contains(&Strategy::SelfFlipThree) {
+                                simulator_println!("Targeting self ({})", current_player.name);
+                                for _ in 0..3 {
+                                    if self.single_turn(current_player, true, i) {
+                                        debug_println!(
+                                            "Add \"{}\" to round discard",
+                                            card.to_string()
+                                        );
+                                        self.round_discard.push(card);
+                                        return true;
+                                    }
+                                }
+                            } else {
+                                let idx = rand::random_range(0..self.players.len() + 1);
+                                if idx == self.players.len() {
+                                    simulator_println!("Targeting {}", current_player.name);
+                                    for _ in 0..3 {
+                                        if self.single_turn(current_player, true, i) {
+                                            debug_println!(
+                                                "Add \"{}\" to round discard",
+                                                card.to_string()
+                                            );
+                                            self.round_discard.push(card);
+                                            return true;
+                                        }
+                                    }
+                                } else {
+                                    let mut target = self
+                                        .players
+                                        .remove(idx)
+                                        .expect("Error: Could not get player by index");
+                                    simulator_println!("Targeting {}", target.name);
+                                    for _ in 0..3 {
+                                        if self.single_turn(&mut target, true, idx) {
+                                            self.players.insert(idx, target);
+                                            debug_println!(
+                                                "Add \"{}\" to round discard",
+                                                card.to_string()
+                                            );
+                                            self.round_discard.push(card);
+                                            return true;
+                                        }
+                                    }
+                                    self.players.insert(idx, target);
+                                };
+                            }
+                            debug_println!("Add \"{}\" to round discard", card.to_string());
+                            self.round_discard.push(card);
+                        }
+                        _ => {
+                            eprintln!(
+                                "Error: Encountered a non-flip-3 action card not handled during a turn"
+                            );
+                            std::process::exit(-1);
+                        }
+                    },
+                    _ => {
+                        eprintln!("Error: Encountered a card not handled during a turn");
+                        std::process::exit(-1);
+                    }
+                }
+            }
+            None => (),
+        }
+        false
+    }
+
     pub fn turn(&mut self, first_round: bool) -> bool {
         simulator_println!("\nPlay a turn of Flip 7!");
         let n_players = self.players.len();
@@ -604,87 +723,23 @@ impl Game {
                 .expect("Error: How can we have a game with no players?");
             simulator_println!("\n{0} is taking their turn", current_player.name);
 
-            let handle_game_action = self.player_turn(&mut current_player, first_round);
-
-            simulator_println!(
-                "{0}: {1} points, {2} live points (+{3})",
-                current_player.name,
-                current_player.score,
-                current_player.get_live_score(),
-                current_player.get_points_scored()
-            );
-
-            match handle_game_action {
-                Some(card) => {
-                    match card {
-                        Card::Number(value) => {
-                            if value == -1 {
-                                // flipped 7
-                                self.players.push_back(current_player);
-                                self.print_scoreboard();
-                                for _ in i..n_players {
-                                    let current_player = self
-                                        .players
-                                        .pop_front()
-                                        .expect("Error: How can we have a game with no players?");
-                                    self.players.push_back(current_player);
-                                }
-                                return true;
-                            } else {
-                                eprintln!(
-                                    "Error: Encountered a number card not handled during a turn"
-                                );
-                                std::process::exit(-1);
-                            }
-                        }
-                        Card::Action(ref t) => match t {
-                            ActionType::Flip3 => {
-                                simulator_println!("{} choosing Flip Three target..", current_player.name);
-                                if current_player.strategies.contains(&Strategy::SelfFlipThree) {
-                                    simulator_println!("Targeting self ({})", current_player.name);
-                                    for _ in 0..3 {
-                                        self.player_turn(&mut current_player, true);
-                                    }
-                                } else {
-                                    let idx = rand::random_range(0..self.players.len() + 1);
-                                    if idx == self.players.len() {
-                                        simulator_println!("Targeting {}", current_player.name);
-                                        for _ in 0..3 {
-                                            self.player_turn(&mut current_player, true);
-                                        }
-                                    } else {
-                                        let mut target = self
-                                            .players
-                                            .remove(idx)
-                                            .expect("Error: Could not get player by index");
-                                        simulator_println!("Targeting {}", target.name);
-                                        for _ in 0..3 {
-                                            self.player_turn(&mut target, true);
-                                        }
-                                        self.players.insert(idx, target);
-                                    };
-                                }
-                                debug_println!("Add \"{}\" to round discard", card.to_string());
-                                self.round_discard.push(card);
-                            }
-                            _ => {
-                                eprintln!(
-                                    "Error: Encountered a non-flip-3 action card not handled during a turn"
-                                );
-                                std::process::exit(-1);
-                            }
-                        },
-                        _ => {
-                            eprintln!("Error: Encountered a card not handled during a turn");
-                            std::process::exit(-1);
-                        }
-                    }
+            if self.single_turn(&mut current_player, first_round, i) {
+                // flipped 7
+                self.players.push_back(current_player);
+                let n_players = self.players.len();
+                for _ in i..n_players {
+                    let current_player = self
+                        .players
+                        .pop_front()
+                        .expect("Error: How can we have a game with no players?");
+                    self.players.push_back(current_player);
                 }
-                None => (),
+                self.print_scoreboard();
+                return true;
+            } else {
+                self.players.push_back(current_player);
             }
-            self.players.push_back(current_player);
         }
-        self.print_scoreboard();
         false
     }
 
@@ -760,7 +815,7 @@ impl Game {
         self.game_winner().is_some()
     }
 
-    pub fn play(&mut self) {
+    pub fn play(mut self) -> Player {
         self.round(true);
         while !self.is_game_over() {
             self.round(false);
@@ -771,17 +826,18 @@ impl Game {
             .expect("Game cannot be over with no winner...");
         simulator_println!("Winner: {0} with {1} points!", winner.name, winner.score);
         self.print_scoreboard();
+        winner.clone()
     }
 }
 
-#[derive(Clone, PartialEq)]
+#[derive(Eq, Hash, PartialEq, Clone)]
 enum Strategy {
-    IgnoreModifiers, // todo
+    IgnoreModifiers,        // todo
     AggressiveSecondChance, // todo
-    SelfFlipThree, // done
-    SmartFlipThree, // todo
-    RandomFlipThree, // done
-    NeverSelfFlipThree, // todo
+    SelfFlipThree,          // done
+    SmartFlipThree,         // todo
+    RandomFlipThree,        // done
+    NeverSelfFlipThree,     // todo
 }
 
 impl std::str::FromStr for Strategy {
@@ -802,12 +858,12 @@ impl std::str::FromStr for Strategy {
 impl std::fmt::Display for Strategy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let s = match self {
-            Strategy::IgnoreModifiers => String::from("IgnoreModifiers"), 
-            Strategy::SelfFlipThree => String::from("SelfFlipThree"), 
-            Strategy::SmartFlipThree => String::from("SmartFlipThree"), 
-            Strategy::RandomFlipThree => String::from("RandomFlipThree"), 
-            Strategy::NeverSelfFlipThree => String::from("NeverSelfFlipThree"), 
-            Strategy::AggressiveSecondChance => String::from("AggressiveSecondChance"), 
+            Strategy::IgnoreModifiers => String::from("IgnoreModifiers"),
+            Strategy::SelfFlipThree => String::from("SelfFlipThree"),
+            Strategy::SmartFlipThree => String::from("SmartFlipThree"),
+            Strategy::RandomFlipThree => String::from("RandomFlipThree"),
+            Strategy::NeverSelfFlipThree => String::from("NeverSelfFlipThree"),
+            Strategy::AggressiveSecondChance => String::from("AggressiveSecondChance"),
         };
         write!(f, "{}", s)
     }
@@ -830,6 +886,12 @@ enum Commands {
         target_score: i32,
         stay_value: i32,
     },
+    Baseline {
+        number_of_players: i32,
+        target_score: i32,
+        stay_value: i32,
+        iterations: i32,
+    },
 }
 
 #[derive(Parser)]
@@ -839,6 +901,9 @@ struct CliArgs {
 }
 
 fn optimize_stay_value(target_score: i32, strategies: &Vec<Strategy>) {
+    SIMULATOR_MODE
+        .set(false)
+        .expect("Error: Could not set simulator mode");
     debug_println!("Perform experiment to optimize stay value with target score {target_score}");
     debug_println!("Using strategies:");
     for strategy in strategies {
@@ -855,12 +920,36 @@ fn optimize_stay_value(target_score: i32, strategies: &Vec<Strategy>) {
 }
 
 fn simulation(number_of_players: i32, target_score: i32, stay_value: i32) {
-    SIMULATOR_MODE = true;
+    SIMULATOR_MODE
+        .set(true)
+        .expect("Error: Could not set simulator mode");
     debug_println!("Do simulation with {number_of_players} players up to {target_score} points");
 
-    let mut game = Game::new(number_of_players, target_score, stay_value);
+    let game = Game::new(number_of_players, target_score, stay_value);
 
     game.play();
+}
+
+fn baseline(number_of_players: i32, target_score: i32, stay_value: i32, iterations: i32) {
+    SIMULATOR_MODE
+        .set(false)
+        .expect("Error: Could not set simulator mode");
+    debug_println!("Do baseline with {number_of_players} players up to {target_score} points staying at {stay_value} for {iterations} iterations");
+
+    let mut win_count: HashMap<Player, i32> = HashMap::new();
+
+    for _ in 0..iterations {
+        let game = Game::new(number_of_players, target_score, stay_value);
+        let winner = game.play();
+        win_count
+                .entry(winner)
+                .and_modify(|value| *value += 1)
+                .or_insert(1);
+    }
+
+    for (winner, wins) in win_count {
+        println!("{} wins {:.2}% of the time", winner.name, (wins as f64 / iterations as f64) * 100.0);
+    }
 }
 
 fn main() {
@@ -880,5 +969,11 @@ fn main() {
                 optimize_stay_value(*target_score, strategies)
             }
         },
+        Commands::Baseline {
+            number_of_players,
+            target_score,
+            stay_value,
+            iterations,
+        } => baseline(*number_of_players, *target_score, *stay_value, *iterations),
     }
 }
