@@ -2,9 +2,10 @@ use clap::Parser;
 use debug_print::debug_println;
 use rand::seq::SliceRandom;
 use std::collections::{HashMap, HashSet, VecDeque};
+use std::hash::{Hash, Hasher};
+use std::ptr::null;
 use std::sync::OnceLock;
 use std::vec;
-use std::hash::{Hash, Hasher};
 
 const EXPECTED_NUM_CARDS: usize = 94;
 static SIMULATOR_MODE: OnceLock<bool> = OnceLock::new();
@@ -438,21 +439,29 @@ struct Game {
 }
 
 impl Game {
-    pub fn new(num_players: i32, target_score: i32, stay_value: i32) -> Game {
-        debug_println!("Create a new game with {num_players} players staying at {stay_value}");
-        let mut game: Game = Game {
-            players: VecDeque::new(),
+    pub fn new_generic_players(num_players: i32, target_score: i32, stay_value: i32) -> Game {
+        let mut players = VecDeque::new();
+        let mut player_set = HashSet::new();
+        for i in 0..num_players {
+            let player = Player::new(format!("Player {i}"), stay_value);
+            assert!(player_set.insert(player.name.clone()));
+            players.push_back(player);
+        }
+        debug_println!(
+            "Create a new game with {} players staying at {stay_value}",
+            players.len()
+        );
+        Self::new(players, target_score)
+    }
+
+    pub fn new(players: VecDeque<Player>, target_score: i32) -> Game {
+        let game: Game = Game {
+            players,
             deck: Deck::new(),
             discard: vec![],
             round_discard: vec![],
             target_score,
         };
-        let mut player_set = HashSet::new();
-        for i in 0..num_players {
-            let player = Player::new(format!("Player {i}"), stay_value);
-            assert!(player_set.insert(player.name.clone()));
-            game.players.push_back(player);
-        }
         game
     }
 
@@ -877,18 +886,13 @@ enum ExperimentCommands {
 #[derive(Parser)]
 enum Commands {
     Experiment {
-        target_score: i32,
         #[command(subcommand)]
         command: ExperimentCommands,
     },
     Simulation {
-        number_of_players: i32,
-        target_score: i32,
         stay_value: i32,
     },
     Baseline {
-        number_of_players: i32,
-        target_score: i32,
         stay_value: i32,
         iterations: i32,
     },
@@ -896,11 +900,76 @@ enum Commands {
 
 #[derive(Parser)]
 struct CliArgs {
+    target_score: i32,
+    number_of_players: i32,
     #[command(subcommand)]
     command: Commands,
 }
 
-fn optimize_stay_value(target_score: i32, strategies: &Vec<Strategy>) {
+fn generate_players(
+    p0_stay_value: i32,
+    field_stay_value: i32,
+    number_of_players: i32,
+) -> VecDeque<Player> {
+    let mut players = VecDeque::new();
+    players.push_back(Player {
+        name: format!("Player 0"),
+        hand: vec![],
+        stay_value: p0_stay_value,
+        score: 0,
+        second_chance: false,
+        out: false,
+        flip7: false,
+        stay: false,
+        strategies: vec![],
+    });
+    for i in 1..number_of_players {
+        players.push_back(Player {
+            name: format!("Player {i}"),
+            hand: vec![],
+            stay_value: field_stay_value,
+            score: 0,
+            second_chance: false,
+            out: false,
+            flip7: false,
+            stay: false,
+            strategies: vec![],
+        });
+    }
+    players
+}
+
+fn get_win_pct(players: VecDeque<Player>, target_score: i32, stay_value: i32, batch: i32) -> f32 {
+    let mut win_counts: HashMap<Player, i32> = HashMap::new();
+    for _ in 0..batch {
+        let game = Game::new(players.clone(), target_score);
+        let winner = game.play();
+        win_counts
+            .entry(winner)
+            .and_modify(|value| *value += 1)
+            .or_insert(1);
+    }
+    let data: Vec<_> = win_counts.iter().collect();
+    let generic_player = Player {
+        name: String::from("Player 0"),
+        hand: vec![],
+        stay_value,
+        score: 0,
+        second_chance: false,
+        out: false,
+        flip7: false,
+        stay: false,
+        strategies: vec![],
+    };
+    let default_result = (&generic_player, &0);
+    let (_, win_count) = data
+        .iter()
+        .find(|(p, _)| p.name == "Player 0")
+        .unwrap_or(&default_result);
+    **win_count as f32 / batch as f32
+}
+
+fn optimize_stay_value(target_score: i32, strategies: &Vec<Strategy>, number_of_players: i32) {
     SIMULATOR_MODE
         .set(false)
         .expect("Error: Could not set simulator mode");
@@ -910,13 +979,116 @@ fn optimize_stay_value(target_score: i32, strategies: &Vec<Strategy>) {
         debug_println!("\t{}", strategy);
     }
 
-    /*
-    let stay_value = 25;
+    let max_stay_value = 200;
+    let min_stay_value = 0;
+    let init_stay_value = 100;
+    // stay when we've draw 7 cards of average value in the deck
+    let field_stay_value = 7
+        * (12 * 12
+            + 11 * 11
+            + 10 * 10
+            + 9 * 9
+            + 8 * 8
+            + 7 * 7
+            + 6 * 6
+            + 5 * 5
+            + 4 * 4
+            + 3 * 3
+            + 2 * 2
+            + 1)
+        / (12 + 11 + 10 + 9 + 8 + 7 + 6 + 5 + 4 + 3 + 2 + 1);
+    let mut heat = 1.0;
+    let alpha = 0.99;
+    let min_heat = 1.0 / init_stay_value as f32;
 
-    let mut game = Game::new(1, target_score, stay_value);
+    let mut stay_value = init_stay_value;
 
-    game.play();
-    */
+    let batch = 10000;
+    let max_iterations = 1000;
+
+    // evaluate initial state
+    let mut win_pct = get_win_pct(
+        generate_players(stay_value, field_stay_value, number_of_players),
+        target_score,
+        stay_value,
+        batch,
+    );
+
+    let mut best_stay_value = init_stay_value;
+    let mut best_win_pct = win_pct;
+    println!(
+        "Initial win % staying at {best_stay_value}: {:.2}%",
+        best_win_pct * 100.0
+    );
+
+    debug_println!("Running a max of {max_iterations} iterations of {batch} batches");
+    for _ in 0..max_iterations {
+        // get new stay value
+        let range = (init_stay_value as f32 * heat) as i32;
+        if range == 0 {
+            println!("Too cold (detected)!");
+            break;
+        }
+
+        let lower_bound = if stay_value == min_stay_value {
+            0
+        } else {
+            -range
+        };
+        let upper_bound = if stay_value == max_stay_value {
+            0
+        } else {
+            range
+        };
+
+        let mut new_stay_value = stay_value + rand::random_range(lower_bound..upper_bound);
+
+        if new_stay_value < min_stay_value {
+            new_stay_value = min_stay_value;
+        } else if new_stay_value > max_stay_value {
+            new_stay_value = max_stay_value;
+        }
+
+        let new_win_pct = get_win_pct(
+            generate_players(new_stay_value, field_stay_value, number_of_players),
+            target_score,
+            new_stay_value,
+            batch,
+        );
+
+        let delta = win_pct - new_win_pct;
+
+        if delta < 0.0 || rand::random_range(0.0..1.0) < std::f32::consts::E.powf(-delta / heat) {
+            stay_value = new_stay_value;
+            win_pct = new_win_pct;
+
+            if win_pct > best_win_pct {
+                best_win_pct = win_pct;
+                best_stay_value = stay_value;
+                println!(
+                    "\nNew best stay value: {best_stay_value}\nBest win percent: {:.2}%\n",
+                    best_win_pct * 100.0
+                );
+            }
+        }
+
+        // cooling
+        heat = heat * alpha;
+
+        println!(
+            "Player 0 wins {:.2}% of the time with stay value {stay_value} in a field of {number_of_players} staying at {field_stay_value}",
+            win_pct * 100.0
+        );
+        if heat < min_heat {
+            println!("Too cold!");
+            break;
+        }
+    }
+
+    println!(
+        "Best stay value: {best_stay_value}\nBest win percent: {:.2}%",
+        best_win_pct * 100.0
+    );
 }
 
 fn simulation(number_of_players: i32, target_score: i32, stay_value: i32) {
@@ -925,7 +1097,7 @@ fn simulation(number_of_players: i32, target_score: i32, stay_value: i32) {
         .expect("Error: Could not set simulator mode");
     debug_println!("Do simulation with {number_of_players} players up to {target_score} points");
 
-    let game = Game::new(number_of_players, target_score, stay_value);
+    let game = Game::new_generic_players(number_of_players, target_score, stay_value);
 
     game.play();
 }
@@ -934,46 +1106,51 @@ fn baseline(number_of_players: i32, target_score: i32, stay_value: i32, iteratio
     SIMULATOR_MODE
         .set(false)
         .expect("Error: Could not set simulator mode");
-    debug_println!("Do baseline with {number_of_players} players up to {target_score} points staying at {stay_value} for {iterations} iterations");
+    debug_println!(
+        "Do baseline with {number_of_players} players up to {target_score} points staying at {stay_value} for {iterations} iterations"
+    );
 
     let mut win_count: HashMap<Player, i32> = HashMap::new();
 
     for _ in 0..iterations {
-        let game = Game::new(number_of_players, target_score, stay_value);
+        let game = Game::new_generic_players(number_of_players, target_score, stay_value);
         let winner = game.play();
         win_count
-                .entry(winner)
-                .and_modify(|value| *value += 1)
-                .or_insert(1);
+            .entry(winner)
+            .and_modify(|value| *value += 1)
+            .or_insert(1);
     }
 
-    for (winner, wins) in win_count {
-        println!("{} wins {:.2}% of the time", winner.name, (wins as f64 / iterations as f64) * 100.0);
+    let mut data: Vec<_> = win_count.iter().collect();
+    data.sort_by(|(player_a, _), (player_b, _)| player_a.name.cmp(&player_b.name));
+
+    for (winner, wins) in data {
+        println!(
+            "{} wins {:.2}% of the time",
+            winner.name,
+            (*wins as f64 / iterations as f64) * 100.0
+        );
     }
 }
 
 fn main() {
     let args = CliArgs::parse();
 
+    let number_of_players = args.number_of_players;
+    let target_score = args.target_score;
+
     match &args.command {
-        Commands::Simulation {
-            number_of_players,
-            target_score,
-            stay_value,
-        } => simulation(*number_of_players, *target_score, *stay_value),
-        Commands::Experiment {
-            target_score,
-            command,
-        } => match command {
+        Commands::Simulation { stay_value } => {
+            simulation(number_of_players, target_score, *stay_value)
+        }
+        Commands::Experiment { command } => match command {
             ExperimentCommands::OptimizeStay { strategies } => {
-                optimize_stay_value(*target_score, strategies)
+                optimize_stay_value(target_score, strategies, number_of_players)
             }
         },
         Commands::Baseline {
-            number_of_players,
-            target_score,
             stay_value,
             iterations,
-        } => baseline(*number_of_players, *target_score, *stay_value, *iterations),
+        } => baseline(number_of_players, target_score, *stay_value, *iterations),
     }
 }
