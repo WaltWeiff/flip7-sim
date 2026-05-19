@@ -1004,7 +1004,7 @@ fn optimize_stay_value(target_score: i32, strategies: &Vec<Strategy>, number_of_
     let mut stay_value = init_stay_value;
 
     let batch = 10000;
-    let max_iterations = 1000;
+    let max_iterations = 500;
 
     // evaluate initial state
     let mut win_pct = get_win_pct(
@@ -1016,6 +1016,10 @@ fn optimize_stay_value(target_score: i32, strategies: &Vec<Strategy>, number_of_
 
     let mut best_stay_value = init_stay_value;
     let mut best_win_pct = win_pct;
+    let mut best_stay_value_low = init_stay_value;
+    let mut best_win_pct_low = win_pct;
+    let mut best_stay_value_high = init_stay_value;
+    let mut best_win_pct_high = win_pct;
     println!(
         "Initial win % staying at {best_stay_value}: {:.2}%",
         best_win_pct * 100.0
@@ -1025,8 +1029,8 @@ fn optimize_stay_value(target_score: i32, strategies: &Vec<Strategy>, number_of_
     for _ in 0..max_iterations {
         // get new stay value
         let range = (init_stay_value as f32 * heat) as i32;
-        if range == 0 {
-            println!("Too cold (detected)!");
+        if range <= 0 {
+            println!("Too cold (detected, heat = {heat})!");
             break;
         }
 
@@ -1041,7 +1045,7 @@ fn optimize_stay_value(target_score: i32, strategies: &Vec<Strategy>, number_of_
             range
         };
 
-        let mut new_stay_value = stay_value + rand::random_range(lower_bound..upper_bound);
+        let mut new_stay_value = best_stay_value + rand::random_range(lower_bound..upper_bound);
 
         if new_stay_value < min_stay_value {
             new_stay_value = min_stay_value;
@@ -1058,6 +1062,17 @@ fn optimize_stay_value(target_score: i32, strategies: &Vec<Strategy>, number_of_
 
         let delta = win_pct - new_win_pct;
 
+        if delta < 0.01 && delta > -0.01 {
+            if new_stay_value < best_stay_value_low {
+                best_stay_value_low = new_stay_value;
+                best_win_pct_low = new_win_pct;
+            }
+            if new_stay_value > best_stay_value_high {
+                best_stay_value_high = new_stay_value;
+                best_win_pct_high = new_win_pct;
+            }
+        }
+
         if delta < 0.0 || rand::random_range(0.0..1.0) < std::f32::consts::E.powf(-delta / heat) {
             stay_value = new_stay_value;
             win_pct = new_win_pct;
@@ -1065,6 +1080,19 @@ fn optimize_stay_value(target_score: i32, strategies: &Vec<Strategy>, number_of_
             if win_pct > best_win_pct {
                 best_win_pct = win_pct;
                 best_stay_value = stay_value;
+
+                let best_win_pct_delta = best_win_pct_high - best_win_pct;
+                if best_win_pct_delta < -0.01 || best_win_pct_delta > 0.01 {
+                    best_win_pct_high = best_win_pct;
+                    best_stay_value_high = best_stay_value;
+                }
+
+                let best_win_pct_delta = best_win_pct_low - best_win_pct;
+                if best_win_pct_delta < -0.01 || best_win_pct_delta > 0.01 {
+                    best_stay_value_low = best_stay_value;
+                    best_win_pct_low = best_win_pct;
+                }
+
                 println!(
                     "\nNew best stay value: {best_stay_value}\nBest win percent: {:.2}%\n",
                     best_win_pct * 100.0
@@ -1088,6 +1116,10 @@ fn optimize_stay_value(target_score: i32, strategies: &Vec<Strategy>, number_of_
     println!(
         "Best stay value: {best_stay_value}\nBest win percent: {:.2}%",
         best_win_pct * 100.0
+    );
+    println!(
+        "Within 1% win-rate range: [{} ({:.2}%) - {} ({:.2}%)]",
+        best_stay_value_low, best_win_pct_low * 100.0, best_stay_value_high, best_win_pct_high * 100.0
     );
 }
 
