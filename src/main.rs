@@ -5,6 +5,15 @@ use std::collections::{HashMap, HashSet, VecDeque};
 use std::vec;
 
 const EXPECTED_NUM_CARDS: usize = 94;
+static SIMULATOR_MODE: bool = false;
+
+macro_rules! simulator_println {
+    ($($arg:tt)*) => {{
+        if SIMULATOR_MODE {
+            println!($($arg)*);
+        }
+    }}
+}
 
 #[derive(Eq, Hash, PartialEq, Clone)]
 enum ActionType {
@@ -133,7 +142,7 @@ impl Deck {
     }
 
     pub fn print(&self) {
-        println!("Deck:");
+        simulator_println!("Deck:");
         let mut card_count: HashMap<&Card, i32> = HashMap::new();
         for card in &self.cards {
             card_count
@@ -142,7 +151,7 @@ impl Deck {
                 .or_insert(1);
         }
         for (card, count) in card_count {
-            println!("\t{count}x:\t{0}", card.to_string());
+            simulator_println!("\t{count}x:\t{0}", card.to_string());
         }
     }
 
@@ -201,7 +210,7 @@ impl Player {
     }
 
     pub fn print_scoreboard(&self) {
-        println!(
+        simulator_println!(
             "\t{} {}: {} points, {} live points (+{})",
             self.name,
             if self.out {
@@ -222,7 +231,7 @@ impl Player {
             Card::Number(_) => {
                 if self.hand.contains(&card) {
                     // if the hand already has this card, don't score it
-                    println!(
+                    simulator_println!(
                         "{0}'s hand already has \"{1}\" in it!",
                         self.name,
                         card.to_string()
@@ -291,7 +300,7 @@ impl Player {
     }
 
     pub fn take_turn(&mut self, card: Card) -> Option<Card> {
-        println!("{0} has drawn \"{1}\"", self.name, card.to_string());
+        simulator_println!("{0} has drawn \"{1}\"", self.name, card.to_string());
         // Add the card to hand, if able
         let handle_card = self.draw(card);
 
@@ -300,12 +309,12 @@ impl Player {
                 match card {
                     Card::Number(_) => {
                         // bust
-                        println!("{0} busts!", self.name);
+                        simulator_println!("{0} busts!", self.name);
                         if self.second_chance {
-                            println!("But they had a second chance. Phew!");
+                            simulator_println!("But they had a second chance. Phew!");
                             self.second_chance = false;
                         } else {
-                            println!("{0} is out of the round!", self.name);
+                            simulator_println!("{0} is out of the round!", self.name);
                             self.out = true;
                         }
                         handle_card
@@ -330,14 +339,14 @@ impl Player {
     }
 
     pub fn end_round(&mut self) -> Vec<Card> {
-        println!(
+        simulator_println!(
             "{0} scored {1} points this round!",
             self.name,
             self.get_points_scored()
         );
-        println!("{}'s cards in hand:", self.name);
+        simulator_println!("{}'s cards in hand:", self.name);
         for card in &self.hand {
-            println!("\t\t\"{}\"", card.to_string())
+            simulator_println!("\t\t\"{}\"", card.to_string())
         }
         self.score = self.get_live_score();
         let hand = self.discard_hand();
@@ -437,14 +446,14 @@ impl Game {
         if !player.out && !player.stay {
             // hit or stay
             if !must_hit && player.should_stay() {
-                println!("{0} chooses to stay!", player.name);
+                simulator_println!("{0} chooses to stay!", player.name);
                 player.stay = true;
             } else {
                 // take turn
                 if must_hit {
-                    println!("{0} must hit!", player.name);
+                    simulator_println!("{0} must hit!", player.name);
                 } else {
-                    println!("{0} chooses to hit!", player.name);
+                    simulator_println!("{0} chooses to hit!", player.name);
                 }
                 let card = self.deck.deal().unwrap_or_else(|| {
                     self.deck.reset_discard(&mut self.discard);
@@ -476,7 +485,7 @@ impl Game {
                             Card::Action(ref action_type) => {
                                 match action_type {
                                     ActionType::Freeze => {
-                                        println!("{} Drew a Freeze!", player.name);
+                                        simulator_println!("{} Drew a Freeze!", player.name);
                                         // Freeze Strategy: target the player with the highest live score
                                         // This gets weird when the highest score is > target score
                                         // In that case, a human player might play kingmaker or make a social decision
@@ -489,7 +498,7 @@ impl Game {
                                                 a.get_live_score().cmp(&b.get_live_score())
                                             })
                                             .unwrap_or_else(|| player);
-                                        println!(
+                                        simulator_println!(
                                             "Targeting {} because they have the highest score {} (or were the only valid target)",
                                             target.name,
                                             target.get_live_score()
@@ -497,16 +506,16 @@ impl Game {
 
                                         target.hand.push(card);
                                         target.stay = true;
-                                        println!("{0} is forced to stay!", target.name);
+                                        simulator_println!("{0} is forced to stay!", target.name);
                                     }
                                     ActionType::Flip3 => {
-                                        println!("{0} drew Flip Three", player.name);
+                                        simulator_println!("{0} drew Flip Three", player.name);
                                         return Some(card);
                                     }
                                     ActionType::SecondChance => {
-                                        println!("{0} drew a second chance!", player.name);
+                                        simulator_println!("{0} drew a second chance!", player.name);
                                         if player.second_chance {
-                                            println!("But they already had one!");
+                                            simulator_println!("But they already had one!");
                                             // This is such an edge case but whatever
                                             // Target the player with the lowest score
                                             let target = self
@@ -518,7 +527,7 @@ impl Game {
                                                     a.get_live_score().cmp(&b.get_live_score())
                                                 })
                                                 .unwrap_or_else(|| player);
-                                            println!(
+                                            simulator_println!(
                                                 "Targeting {} because they have the lowest score {} (or were the only valid target)",
                                                 target.name,
                                                 target.get_live_score()
@@ -554,7 +563,7 @@ impl Game {
                     })
                     .count();
                 if player_number_count == 7 {
-                    println!(
+                    simulator_println!(
                         "{0} Flipped 7! Congratulations! +15 points, and the round is over",
                         player.name
                     );
@@ -568,9 +577,9 @@ impl Game {
                 }
             }
         } else if player.out && !player.stay {
-            println!("{0} is out of the round!", player.name);
+            simulator_println!("{0} is out of the round!", player.name);
         } else if !player.out && player.stay {
-            println!("{0} has stayed!", player.name);
+            simulator_println!("{0} has stayed!", player.name);
         } else {
             eprintln!("How did we get here?");
             std::process::exit(-1);
@@ -579,25 +588,25 @@ impl Game {
     }
 
     pub fn print_scoreboard(&self) {
-        println!("Scoreboard:");
+        simulator_println!("Scoreboard:");
         for player in &self.players {
             player.print_scoreboard();
         }
     }
 
     pub fn turn(&mut self, first_round: bool) -> bool {
-        println!("\nPlay a turn of Flip 7!");
+        simulator_println!("\nPlay a turn of Flip 7!");
         let n_players = self.players.len();
         for i in 0..n_players {
             let mut current_player = self
                 .players
                 .pop_front()
                 .expect("Error: How can we have a game with no players?");
-            println!("\n{0} is taking their turn", current_player.name);
+            simulator_println!("\n{0} is taking their turn", current_player.name);
 
             let handle_game_action = self.player_turn(&mut current_player, first_round);
 
-            println!(
+            simulator_println!(
                 "{0}: {1} points, {2} live points (+{3})",
                 current_player.name,
                 current_player.score,
@@ -630,16 +639,16 @@ impl Game {
                         }
                         Card::Action(ref t) => match t {
                             ActionType::Flip3 => {
-                                println!("{} choosing Flip Three target..", current_player.name);
+                                simulator_println!("{} choosing Flip Three target..", current_player.name);
                                 if current_player.strategies.contains(&Strategy::SelfFlipThree) {
-                                    println!("Targeting self ({})", current_player.name);
+                                    simulator_println!("Targeting self ({})", current_player.name);
                                     for _ in 0..3 {
                                         self.player_turn(&mut current_player, true);
                                     }
                                 } else {
                                     let idx = rand::random_range(0..self.players.len() + 1);
                                     if idx == self.players.len() {
-                                        println!("Targeting {}", current_player.name);
+                                        simulator_println!("Targeting {}", current_player.name);
                                         for _ in 0..3 {
                                             self.player_turn(&mut current_player, true);
                                         }
@@ -648,7 +657,7 @@ impl Game {
                                             .players
                                             .remove(idx)
                                             .expect("Error: Could not get player by index");
-                                        println!("Targeting {}", target.name);
+                                        simulator_println!("Targeting {}", target.name);
                                         for _ in 0..3 {
                                             self.player_turn(&mut target, true);
                                         }
@@ -688,14 +697,14 @@ impl Game {
     }
 
     pub fn round(&mut self, mut first_round: bool) {
-        println!("\nPlay a round of Flip 7!");
+        simulator_println!("\nPlay a round of Flip 7!");
         while !self.round_over() {
             if self.turn(first_round) {
                 break;
             }
             first_round = false;
         }
-        println!("\nRound is over!");
+        simulator_println!("\nRound is over!");
         let n_players = self.players.len();
         let mut cards_in_hands = 0;
         for _ in 0..n_players {
@@ -756,21 +765,23 @@ impl Game {
         while !self.is_game_over() {
             self.round(false);
         }
-        println!("\nGame over!");
+        simulator_println!("\nGame over!");
         let winner = self
             .game_winner()
             .expect("Game cannot be over with no winner...");
-        println!("Winner: {0} with {1} points!", winner.name, winner.score);
+        simulator_println!("Winner: {0} with {1} points!", winner.name, winner.score);
         self.print_scoreboard();
     }
 }
 
 #[derive(Clone, PartialEq)]
 enum Strategy {
-    IgnoreModifiers,
-    SelfFlipThree,
-    SmartFlipThree,
-    RandomFlipThree,
+    IgnoreModifiers, // todo
+    AggressiveSecondChance, // todo
+    SelfFlipThree, // done
+    SmartFlipThree, // todo
+    RandomFlipThree, // done
+    NeverSelfFlipThree, // todo
 }
 
 impl std::str::FromStr for Strategy {
@@ -781,6 +792,8 @@ impl std::str::FromStr for Strategy {
             "ignore-modifiers" => Ok(Strategy::IgnoreModifiers),
             "self-flip-three" => Ok(Strategy::SelfFlipThree),
             "smart-flip-three" => Ok(Strategy::SmartFlipThree),
+            "never-self-flip-three" => Ok(Strategy::NeverSelfFlipThree),
+            "aggressive-second-chance" => Ok(Strategy::AggressiveSecondChance),
             _ => Err(format!("invalid value: {}", s)),
         }
     }
@@ -789,10 +802,12 @@ impl std::str::FromStr for Strategy {
 impl std::fmt::Display for Strategy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let s = match self {
-            Strategy::IgnoreModifiers => String::from("IgnoreModifiers"),
-            Strategy::SelfFlipThree => String::from("SelfFlipThree"),
-            Strategy::SmartFlipThree => String::from("SmartFlipThree"),
-            Strategy::RandomFlipThree => String::from("RandomFlipThree"),
+            Strategy::IgnoreModifiers => String::from("IgnoreModifiers"), 
+            Strategy::SelfFlipThree => String::from("SelfFlipThree"), 
+            Strategy::SmartFlipThree => String::from("SmartFlipThree"), 
+            Strategy::RandomFlipThree => String::from("RandomFlipThree"), 
+            Strategy::NeverSelfFlipThree => String::from("NeverSelfFlipThree"), 
+            Strategy::AggressiveSecondChance => String::from("AggressiveSecondChance"), 
         };
         write!(f, "{}", s)
     }
@@ -840,6 +855,7 @@ fn optimize_stay_value(target_score: i32, strategies: &Vec<Strategy>) {
 }
 
 fn simulation(number_of_players: i32, target_score: i32, stay_value: i32) {
+    SIMULATOR_MODE = true;
     debug_println!("Do simulation with {number_of_players} players up to {target_score} points");
 
     let mut game = Game::new(number_of_players, target_score, stay_value);
