@@ -349,9 +349,53 @@ impl Player {
         }
     }
 
-    pub fn should_stay(&self) -> bool {
-        // todo: this can be smarter
-        self.get_live_score() - self.score >= self.stay_value
+    pub fn should_stay(&self, game: &Game) -> bool {
+        if self.strategies.contains(&Strategy::AggressiveSecondChance) && self.second_chance {
+            false
+        } else if self.strategies.contains(&Strategy::CardCounting) {
+            let mut bust_probability = 0.0;
+            for ref hand_card in &self.hand {
+                match hand_card {
+                    Card::Number(hand_value) => {
+                        let mut n_left_in_deck = 0;
+                        for ref deck_card in &game.deck.cards {
+                            match deck_card {
+                                Card::Number(deck_value) => {
+                                    if hand_value == deck_value {
+                                        n_left_in_deck += 1;
+                                    }
+                                }
+                                _ => {}
+                            }
+                        }
+                        bust_probability += n_left_in_deck as f32 / game.deck.cards.len() as f32;
+                    }
+                    _ => {}
+                }
+            }
+            bust_probability * 100.0 > self.stay_value as f32
+        } else if self.strategies.contains(&Strategy::BustProbability) {
+            let cards_in_deck = EXPECTED_NUM_CARDS as f32;
+            let mut bust_probability = 0.0;
+            for ref card in &self.hand {
+                match card {
+                    Card::Number(value) => bust_probability += (*value - 1) as f32 / cards_in_deck,
+                    _ => {}
+                }
+            }
+            bust_probability * 100.0 > self.stay_value as f32
+        } else if self.strategies.contains(&Strategy::IgnoreModifiers) {
+            let mut score = 0;
+            for ref card in &self.hand {
+                match card {
+                    Card::Number(value) => score += value,
+                    _ => {}
+                }
+            }
+            score >= self.stay_value
+        } else {
+            self.get_live_score() - self.score >= self.stay_value
+        }
     }
 
     pub fn end_round(&mut self) -> Vec<Card> {
@@ -469,7 +513,7 @@ impl Game {
         // out or not
         if !player.out && !player.stay {
             // hit or stay
-            if !must_hit && player.should_stay() {
+            if !must_hit && player.should_stay(self) {
                 simulator_println!("{0} chooses to stay!", player.name);
                 player.stay = true;
             } else {
@@ -841,8 +885,10 @@ impl Game {
 
 #[derive(Eq, Hash, PartialEq, Clone)]
 enum Strategy {
-    IgnoreModifiers,        // todo
-    AggressiveSecondChance, // todo
+    IgnoreModifiers,        // done
+    AggressiveSecondChance, // done
+    BustProbability,        // done
+    CardCounting,           // done
     SelfFlipThree,          // done
     SmartFlipThree,         // todo
     RandomFlipThree,        // done
@@ -855,10 +901,12 @@ impl std::str::FromStr for Strategy {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
             "ignore-modifiers" => Ok(Strategy::IgnoreModifiers),
+            "aggressive-second-chance" => Ok(Strategy::AggressiveSecondChance),
+            "bust-probability" => Ok(Strategy::BustProbability),
+            "card-counting" => Ok(Strategy::CardCounting),
             "self-flip-three" => Ok(Strategy::SelfFlipThree),
             "smart-flip-three" => Ok(Strategy::SmartFlipThree),
             "never-self-flip-three" => Ok(Strategy::NeverSelfFlipThree),
-            "aggressive-second-chance" => Ok(Strategy::AggressiveSecondChance),
             _ => Err(format!("invalid value: {}", s)),
         }
     }
@@ -868,11 +916,13 @@ impl std::fmt::Display for Strategy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let s = match self {
             Strategy::IgnoreModifiers => String::from("IgnoreModifiers"),
+            Strategy::AggressiveSecondChance => String::from("AggressiveSecondChance"),
+            Strategy::BustProbability => String::from("BustProbability"),
+            Strategy::CardCounting => String::from("CardCounting"),
             Strategy::SelfFlipThree => String::from("SelfFlipThree"),
             Strategy::SmartFlipThree => String::from("SmartFlipThree"),
             Strategy::RandomFlipThree => String::from("RandomFlipThree"),
             Strategy::NeverSelfFlipThree => String::from("NeverSelfFlipThree"),
-            Strategy::AggressiveSecondChance => String::from("AggressiveSecondChance"),
         };
         write!(f, "{}", s)
     }
@@ -910,6 +960,7 @@ fn generate_players(
     p0_stay_value: i32,
     field_stay_value: i32,
     number_of_players: i32,
+    strategies: Vec<Strategy>,
 ) -> VecDeque<Player> {
     let mut players = VecDeque::new();
     players.push_back(Player {
@@ -921,7 +972,7 @@ fn generate_players(
         out: false,
         flip7: false,
         stay: false,
-        strategies: vec![],
+        strategies: strategies,
     });
     for i in 1..number_of_players {
         players.push_back(Player {
@@ -981,8 +1032,9 @@ fn optimize_stay_value(target_score: i32, strategies: &Vec<Strategy>, number_of_
 
     let max_stay_value = 200;
     let min_stay_value = 0;
-    let init_stay_value = 100;
+    let init_stay_value = 50;
     // stay when we've draw 7 cards of average value in the deck
+    /*
     let field_stay_value = 7
         * (12 * 12
             + 11 * 11
@@ -997,18 +1049,26 @@ fn optimize_stay_value(target_score: i32, strategies: &Vec<Strategy>, number_of_
             + 2 * 2
             + 1)
         / (12 + 11 + 10 + 9 + 8 + 7 + 6 + 5 + 4 + 3 + 2 + 1);
+    */
+    // approx optimal stay value
+    let field_stay_value = 25;
     let mut heat = 1.0;
     let alpha = 0.99;
-    let min_heat = 1.0 / init_stay_value as f32;
+    let min_heat = 0.1;
 
     let mut stay_value = init_stay_value;
 
-    let batch = 10000;
-    let max_iterations = 500;
+    let batch = 50000;
+    let max_iterations = 50;
 
     // evaluate initial state
     let mut win_pct = get_win_pct(
-        generate_players(stay_value, field_stay_value, number_of_players),
+        generate_players(
+            stay_value,
+            field_stay_value,
+            number_of_players,
+            strategies.clone(),
+        ),
         target_score,
         stay_value,
         batch,
@@ -1016,17 +1076,16 @@ fn optimize_stay_value(target_score: i32, strategies: &Vec<Strategy>, number_of_
 
     let mut best_stay_value = init_stay_value;
     let mut best_win_pct = win_pct;
-    let mut best_stay_value_low = init_stay_value;
-    let mut best_win_pct_low = win_pct;
-    let mut best_stay_value_high = init_stay_value;
-    let mut best_win_pct_high = win_pct;
+
     println!(
         "Initial win % staying at {best_stay_value}: {:.2}%",
         best_win_pct * 100.0
     );
 
     debug_println!("Running a max of {max_iterations} iterations of {batch} batches");
-    for _ in 0..max_iterations {
+    let mut n_iters = 0;
+    let mut results: Vec<(i32, f32)> = vec![];
+    for i in 0..=max_iterations {
         // get new stay value
         let range = (init_stay_value as f32 * heat) as i32;
         if range <= 0 {
@@ -1054,24 +1113,18 @@ fn optimize_stay_value(target_score: i32, strategies: &Vec<Strategy>, number_of_
         }
 
         let new_win_pct = get_win_pct(
-            generate_players(new_stay_value, field_stay_value, number_of_players),
+            generate_players(
+                new_stay_value,
+                field_stay_value,
+                number_of_players,
+                strategies.clone(),
+            ),
             target_score,
             new_stay_value,
             batch,
         );
 
         let delta = win_pct - new_win_pct;
-
-        if delta < 0.01 && delta > -0.01 {
-            if new_stay_value < best_stay_value_low {
-                best_stay_value_low = new_stay_value;
-                best_win_pct_low = new_win_pct;
-            }
-            if new_stay_value > best_stay_value_high {
-                best_stay_value_high = new_stay_value;
-                best_win_pct_high = new_win_pct;
-            }
-        }
 
         if delta < 0.0 || rand::random_range(0.0..1.0) < std::f32::consts::E.powf(-delta / heat) {
             stay_value = new_stay_value;
@@ -1080,18 +1133,6 @@ fn optimize_stay_value(target_score: i32, strategies: &Vec<Strategy>, number_of_
             if win_pct > best_win_pct {
                 best_win_pct = win_pct;
                 best_stay_value = stay_value;
-
-                let best_win_pct_delta = best_win_pct_high - best_win_pct;
-                if best_win_pct_delta < -0.01 || best_win_pct_delta > 0.01 {
-                    best_win_pct_high = best_win_pct;
-                    best_stay_value_high = best_stay_value;
-                }
-
-                let best_win_pct_delta = best_win_pct_low - best_win_pct;
-                if best_win_pct_delta < -0.01 || best_win_pct_delta > 0.01 {
-                    best_stay_value_low = best_stay_value;
-                    best_win_pct_low = best_win_pct;
-                }
 
                 println!(
                     "\nNew best stay value: {best_stay_value}\nBest win percent: {:.2}%\n",
@@ -1103,6 +1144,7 @@ fn optimize_stay_value(target_score: i32, strategies: &Vec<Strategy>, number_of_
         // cooling
         heat = heat * alpha;
 
+        results.push((stay_value, win_pct));
         println!(
             "Player 0 wins {:.2}% of the time with stay value {stay_value} in a field of {number_of_players} staying at {field_stay_value}",
             win_pct * 100.0
@@ -1111,15 +1153,40 @@ fn optimize_stay_value(target_score: i32, strategies: &Vec<Strategy>, number_of_
             println!("Too cold!");
             break;
         }
+        n_iters = i;
     }
 
     println!(
         "Best stay value: {best_stay_value}\nBest win percent: {:.2}%",
         best_win_pct * 100.0
     );
+
+    let low_result = results
+        .iter()
+        .filter(|(_, pct)| {
+            let delta = pct - best_win_pct;
+            delta < 0.01 && delta > -0.01
+        })
+        .min_by(|(a_stay, _), (b_stay, _)| a_stay.cmp(b_stay))
+        .expect("Error: Could not find a lower bound for stay value");
+    let high_result = results
+        .iter()
+        .filter(|(_, pct)| {
+            let delta = pct - best_win_pct;
+            delta < 0.01 && delta > -0.01
+        })
+        .max_by(|(a_stay, _), (b_stay, _)| a_stay.cmp(b_stay))
+        .expect("Error: Could not find a lower bound for stay value");
     println!(
         "Within 1% win-rate range: [{} ({:.2}%) - {} ({:.2}%)]",
-        best_stay_value_low, best_win_pct_low * 100.0, best_stay_value_high, best_win_pct_high * 100.0
+        low_result.0,
+        low_result.1 * 100.0,
+        high_result.0,
+        high_result.1 * 100.0
+    );
+    println!(
+        "Calculated over {n_iters} iterations. Simulated a total of {} games",
+        n_iters * batch
     );
 }
 
